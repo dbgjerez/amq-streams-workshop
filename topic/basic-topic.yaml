@@ -1,10 +1,10 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
-  name: my-topic
+  name: simple-topic-demo
   labels:
-    strimzi.io/cluster: my-cluster
-  namespace: openshift-operators
+    strimzi.io/cluster: demo
+  namespace: kafka
 spec:
   config:
     # 60m * 60s * 1000ms = 1h
