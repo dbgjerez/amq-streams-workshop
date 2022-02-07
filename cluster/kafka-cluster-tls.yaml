@@ -25,6 +25,12 @@ spec:
         port: 9093
         type: internal
         tls: true
+      - name: routetls
+        port: 9094
+        type: route
+        tls: true
+        authentication:
+          type: tls
     replicas: 3
     storage:
       type: ephemeral
