@@ -3,7 +3,7 @@ kind: KafkaTopic
 metadata:
   name: simple-topic-demo
   labels:
-    strimzi.io/cluster: demo
+    strimzi.io/cluster: demotls
   namespace: kafka
 spec:
   config:
