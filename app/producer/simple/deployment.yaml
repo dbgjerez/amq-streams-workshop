@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: simple-kafka-producer
+    app.kubernetes.io/component: simple-kafka-producer
+    app.kubernetes.io/instance: simple-kafka-producer
+  name: simple-kafka-producer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: simple-kafka-producer
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+      labels:
+        deployment: simple-kafka-producer
+    spec:
+      volumes:
+      - name: kafkatls
+        secret: 
+          secretName: demotls-cluster-ca-cert
+          items:
+          - key: ca.p12
+            path: kafka-certificate.p12
+      - name: usertls
+        secret: 
+          secretName: dborrego
+          items: 
+          - key: user.p12
+            path: user-certificate.p12
+      containers:
+      - env:
+        - name: KAFKA_BOOTSTRAP_SERVERS
+          value: demotls-kafka-routetls-bootstrap-kafka.apps.cluster-8e0c.sandbox1784.opentlc.com:443
+        - name: KAFKA_SSL_KEYSTORE_LOCATION
+          value: /certs/user/user-certificate.p12
+        - name: KAFKA_SSL_KEYSTORE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: dborrego
+              key: user.password
+        - name: KAFKA_SSL_TRUSTSTORE_LOCATION
+          value: /certs/kafka/kafka-certificate.p12
+        - name: KAFKA_SSL_TRUSTSTORE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: demotls-cluster-ca-cert
+              key: ca.password
+        image: b0rr3g0/quarkus-simple-kafka-producer:0.3
+        name: quarkus-simple-kafka-producer
+        volumeMounts:
+        - name: kafkatls
+          mountPath: "/certs/kafka"
+          readOnly: true
+        - name: usertls
+          mountPath: "/certs/user"
+          readOnly: true
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}
