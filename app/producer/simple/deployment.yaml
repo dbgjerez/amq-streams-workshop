@@ -28,7 +28,7 @@ spec:
             path: kafka-certificate.p12
       - name: usertls
         secret: 
-          secretName: dborrego
+          secretName: simple-producer
           items: 
           - key: user.p12
             path: user-certificate.p12
@@ -41,7 +41,7 @@ spec:
         - name: KAFKA_SSL_KEYSTORE_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: dborrego
+              name: simple-producer
               key: user.password
         - name: KAFKA_SSL_TRUSTSTORE_LOCATION
           value: /certs/kafka/kafka-certificate.p12
