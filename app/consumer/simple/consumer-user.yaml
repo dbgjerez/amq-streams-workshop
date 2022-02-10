@@ -1,0 +1,22 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaUser
+metadata:
+  name: simple-consumer
+  labels:
+    strimzi.io/cluster: demotls
+spec:
+  authentication:
+    type: tls
+  authorization:
+    type: simple
+    acls:
+      - operation: Read
+        resource:
+          name: simple-kafka-consumer
+          patternType: literal
+          type: group
+      - operation: Read
+        resource:
+          name: books
+          patternType: literal
+          type: topic
