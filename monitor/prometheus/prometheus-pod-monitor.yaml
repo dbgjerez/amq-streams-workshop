@@ -3,7 +3,7 @@ kind: PodMonitor
 metadata:
   name: cluster-operator-metrics
   labels:
-    app: kafka
+    app: strimzi
 spec:
   selector:
     matchLabels:
@@ -20,7 +20,7 @@ kind: PodMonitor
 metadata:
   name: entity-operator-metrics
   labels:
-    app: kafka
+    app: strimzi
 spec:
   selector:
     matchLabels:
@@ -37,14 +37,14 @@ kind: PodMonitor
 metadata:
   name: bridge-metrics
   labels:
-    app: kafka
+    app: strimzi
 spec:
   selector:
     matchLabels:
       strimzi.io/kind: KafkaBridge
   namespaceSelector:
     matchNames:
-      - strimzi-demo
+      - kafka
   podMetricsEndpoints:
   - path: /metrics
     port: rest-api
@@ -54,7 +54,7 @@ kind: PodMonitor
 metadata:
   name: kafka-resources-metrics
   labels:
-    app: kafka
+    app: strimzi
 spec:
   selector:
     matchExpressions:
@@ -63,7 +63,7 @@ spec:
         values: ["Kafka", "KafkaConnect", "KafkaConnectS2I", "KafkaMirrorMaker", "KafkaMirrorMaker2"]
   namespaceSelector:
     matchNames:
-      - strimzi-demo
+      - kafka
   podMetricsEndpoints:
   - path: /metrics
     port: tcp-prometheus
