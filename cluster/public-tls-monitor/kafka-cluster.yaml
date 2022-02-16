@@ -10,7 +10,7 @@ spec:
     topicOperator: {}
     userOperator: {}
   kafka:
-    replicas: 1
+    replicas: 3
     version: 2.8.0
     config:
       # Replication factor for internal metadata topics. Production min 3
@@ -45,7 +45,7 @@ spec:
     storage:
       type: ephemeral
   zookeeper:
-    replicas: 1
+    replicas: 3
     metricsConfig:
       type: jmxPrometheusExporter
       valueFrom:
