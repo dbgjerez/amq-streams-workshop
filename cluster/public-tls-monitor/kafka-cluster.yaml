@@ -1,8 +1,10 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:
-  name: demotls
+  name: demo-kafka-monitor
   namespace: kafka
+  labels:
+    app: kafka
 spec:
   entityOperator:
     topicOperator: {}
