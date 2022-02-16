@@ -8,5 +8,7 @@ spec:
     requests:
       memory: 400Mi
   enableAdminAPI: false
-
-  
+  serviceMonitorSelector: {}
+  additionalScrapeConfigs:
+    name: additional-scrape-configs
+    key: prometheus-additional.yaml
