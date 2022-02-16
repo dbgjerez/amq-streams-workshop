@@ -3,7 +3,7 @@ kind: ClusterRoleBinding
 metadata:
   name: prometheus-server
   labels:
-    app: kafka
+    app: strimzi
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
