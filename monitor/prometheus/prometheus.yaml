@@ -2,6 +2,8 @@ apiVersion: monitoring.coreos.com/v1
 kind: Prometheus
 metadata:
   name: prometheus
+  labels:
+    app: strimzi
 spec:
   replicas: 1
   serviceAccountName: prometheus-server
@@ -10,11 +12,14 @@ spec:
       memory: 400Mi
   podMonitorSelector:
     matchLabels:
-      app: kafka
+      app: strimzi
   ruleSelector:
     matchLabels:
       role: alert-rules
-      app: kafka
+      app: strimzi
+  serviceMonitorSelector:
+    matchLabels:
+      app: strimzi
   enableAdminAPI: false
   serviceMonitorSelector: {}
   additionalScrapeConfigs:
