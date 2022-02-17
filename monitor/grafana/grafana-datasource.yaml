@@ -3,7 +3,7 @@ kind: GrafanaDataSource
 metadata:
   name: prometheus
 spec:
-  name: prometheus.yaml
+  name: prometheus
   datasources:
     - name: Prometheus
       type: prometheus
