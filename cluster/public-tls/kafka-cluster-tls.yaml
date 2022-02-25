@@ -12,8 +12,8 @@ spec:
     config:
       # Replication factor for internal metadata topics. Production min 3
       offsets.topic.replication.factor: 1
-      transaction.state.log.replication.factor: 3
-      transaction.state.log.min.isr: 2
+      transaction.state.log.replication.factor: 1
+      transaction.state.log.min.isr: 1
       log.message.format.version: '2.8'
       inter.broker.protocol.version: '2.8'
     listeners:
@@ -33,10 +33,10 @@ spec:
           type: tls
     authorization:
       type: simple
-    replicas: 3
+    replicas: 1
     storage:
       type: ephemeral
   zookeeper:
-    replicas: 3
+    replicas: 1
     storage:
       type: ephemeral
