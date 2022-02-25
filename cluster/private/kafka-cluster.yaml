@@ -24,10 +24,10 @@ spec:
         port: 9093
         type: internal
         tls: true
-    replicas: 3
+    replicas: 1
     storage:
       type: ephemeral
   zookeeper:
-    replicas: 3
+    replicas: 1
     storage:
       type: ephemeral
