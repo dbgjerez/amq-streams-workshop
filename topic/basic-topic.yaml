@@ -4,7 +4,6 @@ metadata:
   name: simple-topic-demo
   labels:
     strimzi.io/cluster: demotls
-  namespace: kafka
 spec:
   config:
     # 60m * 60s * 1000ms = 1h
