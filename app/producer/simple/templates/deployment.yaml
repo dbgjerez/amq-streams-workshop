@@ -1,59 +1,58 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
-    app: simple-kafka-producer
-    app.kubernetes.io/component: simple-kafka-producer
-    app.kubernetes.io/instance: simple-kafka-producer
-  name: simple-kafka-producer
+    app: kafka-producer-{{ .Values.user.name }}
+    app.kubernetes.io/component: kafka-producer-{{ .Values.user.name }}
+    app.kubernetes.io/instance: kafka-producer-{{ .Values.user.name }}
+  name: kafka-producer-{{ .Values.user.name }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
-      deployment: simple-kafka-producer
+      deployment: kafka-producer-{{ .Values.user.name }}
   strategy: {}
   template:
     metadata:
       annotations:
       labels:
-        deployment: simple-kafka-producer
+        deployment: kafka-producer-{{ .Values.user.name }}
     spec:
       volumes:
       - name: kafkatls
         secret: 
-          secretName: demotls-cluster-ca-cert
+          secretName: {{ .Values.cluster.name }}-cluster-ca-cert
           items:
           - key: ca.p12
             path: kafka-certificate.p12
       - name: usertls
         secret: 
-          secretName: simple-producer
+          secretName: kafka-producer-{{ .Values.user.name }}
           items: 
           - key: user.p12
             path: user-certificate.p12
       containers:
       - env:
         - name: mp.messaging.outgoing.books-new.topic
-          value: books
+          value: {{ .Values.topic.name }}-{{ .Values.user.name }}
         - name: KAFKA_BOOTSTRAP_SERVERS
-          value: demotls-kafka-routetls-bootstrap-kafka.apps.cluster-8e0c.sandbox1784.opentlc.com:443
+          value: {{ .Values.cluster.url }}
         - name: KAFKA_SSL_KEYSTORE_LOCATION
           value: /certs/user/user-certificate.p12
         - name: KAFKA_SSL_KEYSTORE_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: simple-producer
+              name: kafka-producer-{{ .Values.user.name }}
               key: user.password
         - name: KAFKA_SSL_TRUSTSTORE_LOCATION
           value: /certs/kafka/kafka-certificate.p12
         - name: KAFKA_SSL_TRUSTSTORE_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: demotls-cluster-ca-cert
+              name: {{ .Values.cluster.name }}-cluster-ca-cert
               key: ca.password
-        image: b0rr3g0/quarkus-simple-kafka-producer:0.3
-        name: quarkus-simple-kafka-producer
+        image: {{ .Values.image.name }}:{{ .Values.image.version }}
+        name: quarkus-simple-producer-{{ .Values.user.name }}
         volumeMounts:
         - name: kafkatls
           mountPath: "/certs/kafka"

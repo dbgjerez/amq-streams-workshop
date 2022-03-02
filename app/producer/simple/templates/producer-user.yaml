@@ -1,9 +1,9 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaUser
 metadata:
-  name: simple-producer
+  name: kafka-producer-{{ .Values.user.name }}
   labels:
-    strimzi.io/cluster: demotls
+    strimzi.io/cluster: {{ .Values.cluster.name }}
 spec:
   authentication:
     type: tls
@@ -12,6 +12,6 @@ spec:
     acls:
       - resource:
           type: topic
-          name: books
+          name: {{ .Values.topic.name }}-{{ .Values.user.name }}
           patternType: literal
         operation: Write
