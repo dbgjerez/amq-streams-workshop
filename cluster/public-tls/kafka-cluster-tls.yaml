@@ -32,10 +32,10 @@ spec:
           type: tls
     authorization:
       type: simple
-    replicas: 1
+    replicas: 3
     storage:
       type: ephemeral
   zookeeper:
-    replicas: 1
+    replicas: 3
     storage:
       type: ephemeral
