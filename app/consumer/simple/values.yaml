@@ -8,3 +8,4 @@ topic:
 image: 
   name: b0rr3g0/quarkus-simple-kafka-consumer
   version: 0.3
+lag: 1000

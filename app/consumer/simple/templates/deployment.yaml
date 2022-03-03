@@ -33,6 +33,10 @@ spec:
             path: user-certificate.p12
       containers:
       - env:
+        - name: quarkus.vertx.max-event-loop-execute-time
+          value: "10000000000"
+        - name: mp.messaging.incoming.books-new.lag
+          value: {{ .Values.lag }}
         - name: mp.messaging.incoming.books-new.group.id
           value: cg-{{ .Values.user.name }}
         - name: mp.messaging.incoming.books-new.topic
