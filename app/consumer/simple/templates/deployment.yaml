@@ -36,7 +36,7 @@ spec:
         - name: quarkus.vertx.max-event-loop-execute-time
           value: "10000000000"
         - name: mp.messaging.incoming.books-new.lag
-          value: {{ .Values.lag }}
+          value: "1000"
         - name: mp.messaging.incoming.books-new.group.id
           value: cg-{{ .Values.user.name }}
         - name: mp.messaging.incoming.books-new.topic
