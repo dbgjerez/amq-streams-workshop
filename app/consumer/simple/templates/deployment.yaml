@@ -10,13 +10,13 @@ spec:
   replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
-      deployment: kafka-producer-{{ .Values.user.name }}
+      deployment: kafka-consumer-{{ .Values.user.name }}
   strategy: {}
   template:
     metadata:
       annotations:
       labels:
-        deployment: kafka-producer-{{ .Values.user.name }}
+        deployment: kafka-consumer-{{ .Values.user.name }}
     spec:
       volumes:
       - name: kafkatls
